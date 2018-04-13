@@ -1,4 +1,3 @@
-# _*_coding:utf-8_*_
 import re
 
 # # 利用括号分组
