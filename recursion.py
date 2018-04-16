@@ -28,30 +28,22 @@ def getItems(l):
 getItems(s)
 #
 # 斐波那契数列
-def fibonacci(n):
-    if n <= 1:
-        return n
+def fib(n):
+    # 数列的前两项是1
+    if n==1:
+        return 1
+    elif n==2:
+        return 1
     else:
-        return (fibonacci(n- 1)+ fibonacci(n- 2))
-fibonacci(10)
+        return (fib(n- 1)+ fib(n- 2))
+x= int(input("你要输出的项数？"))
+
+if x<= 0:
+    print("请重新输入")
+else:
+    print("斐波那契数列：")
+    for i in range(1,x+1):
+        # 注意参数否则会报错超过最大递归深度 RecursionError: maximum recursion depth exceeded in comparison
+        print(fib(i))
 
 
-# def recur_fibo(n):
-#     """递归函数
-#     输出斐波那契数列"""
-#     if n <= 1:
-#         return n
-#     else:
-#         return (recur_fibo(n - 1) + recur_fibo(n - 2))
-#
-#
-# # 获取用户输入
-# nterms = int(input("您要输出几项? "))
-#
-# # 检查输入的数字是否正确
-# if nterms <= 0:
-#     print("输入正数")
-# else:
-#     print("斐波那契数列:")
-#     for i in range(nterms):
-#         print(recur_fibo(i))
