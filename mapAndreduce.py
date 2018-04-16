@@ -17,3 +17,21 @@ def add(x, y):
     return x+ y
 n= reduce(add, [1, 2, 3, 4])
 print(n)
+
+
+
+# 利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。
+# 输入：['adam', 'LISA', 'barT']，输出：['Adam', 'Lisa', 'Bart']
+
+# capitalize()方法
+list= ['adam', 'LISA', 'barT']
+def normalize(m):
+    for i in m:
+        print(str(i).capitalize()) # capitalize()方法
+normalize(list)
+
+# 循环遍历
+for i in list:
+    x= i[0].upper()+ i[1:].lower() # 此处等同于capitalize()方法
+    print(x)
+
