@@ -27,11 +27,12 @@ print(n)
 list= ['adam', 'LISA', 'barT']
 def normalize(m):
     for i in m:
-        print(str(i).capitalize()) # capitalize()方法
+        p= i.capitalize() # capitalize()方法
+        print(p)
 normalize(list)
-
+l1= map(normalize, list)
 # 循环遍历
-for i in list:
-    x= i[0].upper()+ i[1:].lower() # 此处等同于capitalize()方法
-    print(x)
+# for i in list:
+#     x= i[0].upper()+ i[1:].lower() # 此处等同于capitalize()方法
+#     print(x)
 
