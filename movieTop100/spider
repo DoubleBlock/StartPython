@@ -1,6 +1,6 @@
 import requests
 from requests.exceptions import RequestException
-import re
+import json
 from bs4 import BeautifulSoup
 
 def getSinglePage(url):
@@ -12,16 +12,38 @@ def getSinglePage(url):
         return None
 
 def parserSinglePage(html):
+    # pattern= re.compile(r'<div>.*?item.*?<em>(\d)+</em></div>')
+    # items=re.findall(pattern,html)
+    # print(items)
     soup= BeautifulSoup(html, 'html.parser')
-    items=soup.find_all('div', 'item')
-    return items
+    html_data= soup.select('div.item')
+    movieInfo = {}
+    for items in html_data:
+        for i in range(1,226):
+            Indexs = items[0].select('em')
+            Index = Indexs.string
+            print(Index)
+            names = items.select('span.title')
+            name = names[0].string
+            # print(name)
+            rates = items.select('span.rating_num')
+            rate = rates[0].string
+            # print(rate)
+            movieInfo.setdefault('Index', Index)
+            movieInfo.setdefault( 'name', name)
+            movieInfo.setdefault('rate', rate)
+    print(movieInfo)
+def writeToFile(content):
+    with open('movies.txt','a') as m:
+        m.write(json.dumps(content)+ '\n')
+        m.close()
 
 def main():
-    for i in range(0, 226, 25):
-        url= 'https://movie.douban.com/top250?start='+ str(i)+ '&filter='
+    for num in range(0, 226,25):
+        url= 'https://movie.douban.com/top250?start='+ str(num)+ '&filter='
         html= getSinglePage(url)
-        for item in parserSinglePage(html):
-            print(len(item))
+        movieInfos= parserSinglePage(html)
+        writeToFile(movieInfos)
 
 if __name__=='__main__':
     main()
