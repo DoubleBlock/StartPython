@@ -1,0 +1,27 @@
+import requests
+from requests.exceptions import RequestException
+import re
+from bs4 import BeautifulSoup
+
+def getSinglePage(url):
+    try:
+        response= requests.get(url)
+        if response.status_code== 200:
+            return response.text
+    except RequestException:
+        return None
+
+def parserSinglePage(html):
+    soup= BeautifulSoup(html, 'html.parser')
+    items=soup.find_all('div', 'item')
+    return items
+
+def main():
+    for i in range(0, 226, 25):
+        url= 'https://movie.douban.com/top250?start='+ str(i)+ '&filter='
+        html= getSinglePage(url)
+        for item in parserSinglePage(html):
+            print(len(item))
+
+if __name__=='__main__':
+    main()
