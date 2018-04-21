@@ -17,22 +17,27 @@ def parserSinglePage(html):
     # print(items)
     soup= BeautifulSoup(html, 'html.parser')
     html_data= soup.select('div.item')
-    movieInfo = {}
+    # movieInfo = {}
+    # for items in html_data:
+    #     for i in range(1,226):
+    #         Indexs = items[0].select('em')
+    #         Index = Indexs.string
+    #         print(Index)
+    #         names = items.select('span.title')
+    #         name = names[0].string
+    #         # print(name)
+    #         rates = items.select('span.rating_num')
+    #         rate = rates[0].string
+    #         # print(rate)
+    #         movieInfo.setdefault('Index', Index)
+    #         movieInfo.setdefault( 'name', name)
+    #         movieInfo.setdefault('rate', rate)
+    # print(movieInfo)
     for items in html_data:
-        for i in range(1,226):
-            Indexs = items[0].select('em')
-            Index = Indexs.string
-            print(Index)
-            names = items.select('span.title')
-            name = names[0].string
-            # print(name)
-            rates = items.select('span.rating_num')
-            rate = rates[0].string
-            # print(rate)
-            movieInfo.setdefault('Index', Index)
-            movieInfo.setdefault( 'name', name)
-            movieInfo.setdefault('rate', rate)
-    print(movieInfo)
+        for item in items:
+            Indexs = items.select('em')
+            # Index = Indexs.string
+            print(Indexs[0])
 def writeToFile(content):
     with open('movies.txt','a') as m:
         m.write(json.dumps(content)+ '\n')
@@ -43,7 +48,7 @@ def main():
         url= 'https://movie.douban.com/top250?start='+ str(num)+ '&filter='
         html= getSinglePage(url)
         movieInfos= parserSinglePage(html)
-        writeToFile(movieInfos)
+        # writeToFile(movieInfos)
 
 if __name__=='__main__':
     main()
